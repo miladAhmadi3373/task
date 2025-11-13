@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Vazirmatn } from "next/font/google";
 import "./globals.css";
+import Image from "next/image";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const vazir = Vazirmatn({
+  subsets: ["arabic"],
+  variable: "--font-vazir",
+  weight: ["400", "500", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -23,11 +21,44 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="fa" dir="ltr">
+      <body className={`${vazir.className} antialiased w-full h-screen`}>
+        {/* header */}
+        <div className="w-full h-1/12 bg-[#2B8E5D] flex items-center justify-between px-10">
+          {/* header left */}
+          <div className="flex items-center justify-center">
+            <Image
+              src={"/cart-image.png"}
+              width={50}
+              height={50}
+              alt=""
+              className="cursor-pointer mr-1"
+            />
+            <p className="w-[0.1px] h-7 bg-white mr-4"></p>
+            <div className="py-1 px-5 flex items-center justify-center ml-1 text-sm border border-white cursor-pointer rounded-lg text-white">
+              ورود | ثبت نام
+              <Image
+                src={"/signin.png"}
+                width={28}
+                height={28}
+                alt="signin image"
+              />
+            </div>
+            <Image
+              src={"/notification-image.png"}
+              width={40}
+              height={40}
+              alt="notification image"
+              className="ml-2 cursor-pointer"
+            />
+          </div>
+          {/* header right */}
+          <div className="text-white text-2xl">MAH</div>
+        </div>
+        {/* content */}
+        <div className="w-full h-11/12 flex items-center justify-center">
+          {children}
+        </div>
       </body>
     </html>
   );
