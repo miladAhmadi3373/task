@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Vazirmatn } from "next/font/google";
 import "./globals.css";
 import Image from "next/image";
+import Link from "next/link";
 
 const vazir = Vazirmatn({
   subsets: ["arabic"],
@@ -27,13 +28,15 @@ export default function RootLayout({
         <div className="w-full h-1/12 bg-[#2B8E5D] flex items-center justify-between px-10">
           {/* header left */}
           <div className="flex items-center justify-center">
-            <Image
-              src={"/cart-image.png"}
-              width={50}
-              height={50}
-              alt=""
-              className="cursor-pointer mr-1"
-            />
+            <Link href={"/"}>
+              <Image
+                src={"/cart-image.png"}
+                width={50}
+                height={50}
+                alt=""
+                className="cursor-pointer mr-1"
+              />
+            </Link>
             <p className="w-[0.1px] h-7 bg-white mr-4"></p>
             <div className="py-1 px-5 flex items-center justify-center ml-1 text-sm border border-white cursor-pointer rounded-lg text-white">
               ورود | ثبت نام
@@ -56,7 +59,7 @@ export default function RootLayout({
           <div className="text-white text-2xl">MAH</div>
         </div>
         {/* content */}
-        <div className="w-full h-11/12 flex items-center justify-center">
+        <div className="w-full h-11/12 ">
           {children}
         </div>
       </body>
