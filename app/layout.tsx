@@ -38,15 +38,15 @@ export default function RootLayout({
               />
             </Link>
             <p className="w-[0.1px] h-7 bg-white mr-4"></p>
-            <div className="py-1 px-5 flex items-center justify-center ml-1 text-sm border border-white cursor-pointer rounded-lg text-white">
-              ورود | ثبت نام
-              <Image
-                src={"/signin.png"}
-                width={28}
-                height={28}
-                alt="signin image"
-              />
-            </div>
+              <Link href={"login"} className="py-1 px-5 flex items-center justify-center ml-1 text-sm border border-white cursor-pointer rounded-lg text-white">
+                ورود | ثبت نام
+                <Image
+                  src={"/signin.png"}
+                  width={28}
+                  height={28}
+                  alt="signin image"
+                />
+              </Link>
             <Image
               src={"/notification-image.png"}
               width={40}
@@ -59,9 +59,7 @@ export default function RootLayout({
           <div className="text-white text-2xl">MAH</div>
         </div>
         {/* content */}
-        <div className="w-full h-11/12 ">
-          {children}
-        </div>
+        <div className="w-full h-11/12 ">{children}</div>
       </body>
     </html>
   );

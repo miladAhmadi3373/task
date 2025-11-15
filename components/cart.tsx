@@ -15,12 +15,12 @@ function cart({
   count: number;
 }) {
   return (
-    <div className="w-[95%] mt-5 rounded-xl h-3/12 bg-white shadow flex py-3 justify-between pr-5 hover:shadow-2xl duration-300">
+    <div className="w-[95%] mt-5 rounded-xl h-3/12 bg-white shadow flex py-3 justify-around pr-5 hover:shadow-2xl duration-300">
       <div className="text-left flex items-end justify-start h-full">
         <p className="text-md text-[#2B8E5D] pl-3 font-bold text-right"> {price.toLocaleString()} تومان</p>
       </div>
       <>
-        <div className="flex flex-col pr-4 pt-3">
+        <div className="flex flex-col pr-4 pt-3 w-120">
           <h1 className="text-right text-lg font-bold">{title}</h1>
           <h2 className="text-right text-sm text-gray-600">{desc}</h2>
         </div>
