@@ -28,8 +28,8 @@ function Payment() {
         <div className="w-full mb-4 p-3 bg-gray-100 rounded-xl shadow-inner">
           <p className="text-lg font-semibold text-gray-800 mb-2">اطلاعات کارت برای انتقال وجه:</p>
           <div className="flex flex-col space-y-2 text-gray-700">
-            <p><span className="font-medium">نام دارنده کارت:</span> علی احمدی</p>
-            <p><span className="font-medium">شماره کارت:</span> 6679-9637-1015-5892 </p>
+            <p className="text-[#166a40] font-bold"><span className="font-medium text-gray-700">نام دارنده کارت:</span> علی احمدی</p>
+            <p className="text-[#166a40] font-bold"><span className="font-medium text-gray-700">شماره کارت:</span> 6679-9637-1015-5892 </p>
             <p className="text-sm text-gray-600 mt-4">لطفاً مبلغ کل سفارش را از طریق کارت به کارت (با استفاده از اپلیکیشن بانکی یا ATM) به شماره کارت فوق واریز کنید.</p>
           </div>
         </div>

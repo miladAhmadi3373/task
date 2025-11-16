@@ -2,21 +2,58 @@
 
 import Link from "next/link";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios"; // مطمئن شو axios نصب شده باشه: npm install axios
 
 function Login() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
+  const BASE_URL = process.env.API_BASE_URL || "http://localhost:5000/api"; // مقدار پیش‌فرض برای توسعه محلی
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you can add login logic, e.g., API call
     if (!email || !password) {
       setError("لطفاً تمام فیلدها را پر کنید.");
       return;
     }
     setError("");
-    alert("ورود با موفقیت انجام شد!");
+    setLoading(true);
+
+    try {
+      const userData = { email, password };
+      const response = await axios.post(`${BASE_URL}/auth/login`, userData, {
+        headers: { "Content-Type": "application/json" },
+      });
+
+      const data = response.data;
+      if (data.token) {
+        // ذخیره توکن در cookie (برای دسترسی در کلاینت و سرور)
+        document.cookie = `token=${data.token}; path=/; max-age=3600; secure; samesite=strict`; // max-age=1 ساعت، تنظیمات امنیتی اضافه کردم
+      } else {
+        throw new Error("توکن در پاسخ سرور موجود نیست.");
+      }
+
+      console.log("لاگین موفق:", data);
+      router.push("/shoppingCart"); // ریدایرکت به صفحه مورد نظر فقط در موفقیت
+    } catch (err: any) {
+      // سفارشی کردن پیام ارور بر اساس پاسخ سرور
+      let errorMessage = "خطایی در ورود رخ داد. لطفاً دوباره امتحان کنید.";
+      if (err.response?.data?.message) {
+        if (err.response.data.message.includes("not found") || err.response.status === 404) {
+          errorMessage = "چنین کاربری وجود ندارد.";
+        } else if (err.response.data.message.includes("invalid password")) {
+          errorMessage = "رمز عبور اشتباه است.";
+        } else {
+          errorMessage = err.response.data.message;
+        }
+      }
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -54,9 +91,10 @@ function Login() {
           {error && <p className="text-red-500 text-center text-sm">{error}</p>}
           <button
             type="submit"
-            className="w-full py-3 duration-300 hover:shadow-2xl cursor-pointer hover:bg-[#4ac085] text-white bg-[#2B8E5D] rounded-full text-base font-semibold tracking-wide transform hover:-translate-y-1"
+            disabled={loading}
+            className="w-full py-3 duration-300 hover:shadow-2xl cursor-pointer hover:bg-[#4ac085] text-white bg-[#2B8E5D] rounded-full text-base font-semibold tracking-wide transform hover:-translate-y-1 disabled:opacity-50"
           >
-            ورود
+            {loading ? "در حال ورود..." : "ورود"}
           </button>
         </form>
 

@@ -2,11 +2,35 @@
 
 import Image from "next/image";
 import Cart from "@/components/cart";
-import "./globals.css";
+import "../globals.css";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function page() {
+  const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  // تابع برای چک کردن توکن در cookie
+  const getCookie = (name: string) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop()?.split(";").shift();
+    return null;
+  };
+
+  useEffect(() => {
+    const token = getCookie("token");
+    if (token) {
+      setIsAuthenticated(true);
+    } else {
+      // اگر توکن نبود، ریدایرکت به لاگین
+      router.push("/login");
+    }
+    setLoading(false);
+  }, [router]);
+
   const shoppingCartItems = [
     {
       id: 1,
@@ -51,6 +75,14 @@ export default function page() {
     // Store shopping cart items in localStorage for pre-invoice page
     localStorage.setItem("shoppingCartItems", JSON.stringify(shoppingCartItems));
   }, []);
+
+  if (loading) {
+    return <div className="flex items-center justify-center w-full h-full">در حال بررسی ورود...</div>;
+  }
+
+  if (!isAuthenticated) {
+    return null; // یا می‌تونی یک پیام نشون بدی، اما چون ریدایرکت می‌کنه، لازم نیست
+  }
 
   return (
     <div className="flex items-center justify-center w-full h-full">
