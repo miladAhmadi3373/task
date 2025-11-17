@@ -1,7 +1,10 @@
+// app/paneladmin/page.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
 interface Stats {
   totalUsers: number;
@@ -37,6 +40,8 @@ interface Order {
 }
 
 function AdminPanel() {
+  const router = useRouter();
+  const { isAuthorized, loading } = useAuth("admin");
   const [stats, setStats] = useState<Stats>({
     totalUsers: 0,
     totalOrders: 0,
@@ -49,16 +54,13 @@ function AdminPanel() {
   const [allOrders, setAllOrders] = useState<Order[]>([]);
   const [activeTab, setActiveTab] = useState("pending");
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
-  const [loading, setLoading] = useState(true);
 
-  // شبیه‌سازی دریافت داده از API
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
     try {
-      // در عمل اینجا باید API واقعی فراخوانی شود
       setTimeout(() => {
         const mockPendingOrders: Order[] = [
           {
@@ -83,24 +85,6 @@ function AdminPanel() {
               filename: "receipt-123456.jpg",
               path: "/uploads/receipts/receipt-123456.jpg",
               uploadedAt: "2024-01-15T11:00:00Z",
-            },
-          },
-          {
-            id: "2",
-            userId: "user2",
-            userName: "مریم کریمی",
-            userEmail: "maryam@example.com",
-            items: [
-              { id: "3", name: "لپ‌تاپ ایسوس", price: 25000000, quantity: 1 },
-            ],
-            total: 25000000,
-            cardNumber: "6104****5678",
-            status: "pending_verification",
-            createdAt: "2024-01-15T09:15:00Z",
-            receipt: {
-              filename: "receipt-789012.jpg",
-              path: "/uploads/receipts/receipt-789012.jpg",
-              uploadedAt: "2024-01-15T09:45:00Z",
             },
           },
         ];
@@ -141,24 +125,16 @@ function AdminPanel() {
 
         setPendingOrders(mockPendingOrders);
         setAllOrders(mockAllOrders);
-        setLoading(false);
       }, 1000);
     } catch (error) {
       console.error("Error fetching data:", error);
-      setLoading(false);
     }
   };
 
-  const verifyOrder = async (
-    orderId: string,
-    approved: boolean,
-    note?: string
-  ) => {
+  const verifyOrder = async (orderId: string, approved: boolean, note?: string) => {
     try {
-      // در عمل اینجا باید API فراخوانی شود
       console.log("Verifying order:", orderId, approved, note);
 
-      // به‌روزرسانی محلی برای نمایش
       setPendingOrders((prev) => prev.filter((order) => order.id !== orderId));
       setAllOrders((prev) =>
         prev.map((order) =>
@@ -230,6 +206,12 @@ function AdminPanel() {
     );
   };
 
+  const handleLogout = () => {
+    document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    localStorage.removeItem("userRole");
+    router.push("/login");
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
@@ -241,9 +223,12 @@ function AdminPanel() {
     );
   }
 
+  if (!isAuthorized) {
+    return null;
+  }
+
   return (
     <div className="min-h-screen bg-gray-50" dir="rtl">
-      {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
@@ -274,9 +259,9 @@ function AdminPanel() {
             </div>
 
             <div className="flex items-center space-x-4 space-x-reverse">
-              <div className="text-right ml-2">
+              <div className="text-right">
                 <p className="text-sm font-medium text-gray-900">مدیر سیستم</p>
-                <p className="text-xs text-gray-500">admin@example.com</p>
+                <p className="text-xs text-gray-500">admin</p>
               </div>
               <div className="w-10 h-10 bg-[#2B8E5D] rounded-full flex items-center justify-center">
                 <svg
@@ -299,9 +284,8 @@ function AdminPanel() {
       </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-2xl shadow-lg p-6 transform transition-all duration-300 hover:scale-105">
+          <div className="bg-white rounded-2xl shadow-lg p-6">
             <div className="flex items-center">
               <div className="bg-blue-100 p-3 rounded-xl">
                 <svg
@@ -327,7 +311,7 @@ function AdminPanel() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 transform transition-all duration-300 hover:scale-105">
+          <div className="bg-white rounded-2xl shadow-lg p-6">
             <div className="flex items-center">
               <div className="bg-green-100 p-3 rounded-xl">
                 <svg
@@ -353,7 +337,7 @@ function AdminPanel() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 transform transition-all duration-300 hover:scale-105">
+          <div className="bg-white rounded-2xl shadow-lg p-6">
             <div className="flex items-center">
               <div className="bg-purple-100 p-3 rounded-xl">
                 <svg
@@ -379,7 +363,7 @@ function AdminPanel() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 transform transition-all duration-300 hover:scale-105">
+          <div className="bg-white rounded-2xl shadow-lg p-6">
             <div className="flex items-center">
               <div className="bg-yellow-100 p-3 rounded-xl">
                 <svg
@@ -406,7 +390,6 @@ function AdminPanel() {
           </div>
         </div>
 
-        {/* Tabs */}
         <div className="bg-white rounded-2xl shadow-lg mb-8">
           <div className="border-b border-gray-200">
             <nav className="flex -mb-px">
@@ -433,7 +416,6 @@ function AdminPanel() {
             </nav>
           </div>
 
-          {/* Orders Table */}
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50">
@@ -516,7 +498,6 @@ function AdminPanel() {
         </div>
       </div>
 
-      {/* Order Detail Modal */}
       {selectedOrder && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
@@ -545,7 +526,6 @@ function AdminPanel() {
             </div>
 
             <div className="p-6 space-y-6">
-              {/* Customer Info */}
               <div>
                 <h4 className="text-sm font-medium text-gray-500 mb-2">
                   اطلاعات مشتری
@@ -563,7 +543,6 @@ function AdminPanel() {
                 </div>
               </div>
 
-              {/* Order Items */}
               <div>
                 <h4 className="text-sm font-medium text-gray-500 mb-2">
                   محصولات سفارش
@@ -594,7 +573,6 @@ function AdminPanel() {
                 </div>
               </div>
 
-              {/* Receipt */}
               {selectedOrder.receipt && (
                 <div>
                   <h4 className="text-sm font-medium text-gray-500 mb-2">
@@ -637,7 +615,6 @@ function AdminPanel() {
                 </div>
               )}
 
-              {/* Actions */}
               {selectedOrder.status === "pending_verification" && (
                 <div className="flex space-x-3 space-x-reverse">
                   <button

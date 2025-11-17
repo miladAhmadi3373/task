@@ -1,9 +1,10 @@
+// app/login/page.tsx
 "use client";
 
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios"; // مطمئن شو axios نصب شده باشه: npm install axios
+import axios from "axios";
 
 function Login() {
   const [email, setEmail] = useState<string>("");
@@ -11,7 +12,7 @@ function Login() {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
-  const BASE_URL = process.env.API_BASE_URL || "http://localhost:5000/api"; // مقدار پیش‌فرض برای توسعه محلی
+  const BASE_URL = process.env.API_BASE_URL || "http://localhost:5000/api";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,6 +24,22 @@ function Login() {
     setLoading(true);
 
     try {
+      // 🆕 فقط این شرط if را اضافه کردم
+      if (email.toLowerCase() === "admin@gmail.com" && password === "admin") {
+        console.log("ورود ادمین تشخیص داده شد");
+        
+        // ایجاد توکن جعلی برای ادمین
+        const adminToken = "admin-token-" + Date.now();
+        
+        // ذخیره توکن ادمین در cookie
+        document.cookie = `token=${adminToken}; path=/; max-age=3600; secure; samesite=strict`;
+        
+        console.log("ورود ادمین موفق");
+        router.push("/paneladmin"); // 🆕 هدایت به پنل ادمین
+        return;
+      }
+
+      // بقیه کد دقیقاً مثل قبلی می‌ماند
       const userData = { email, password };
       const response = await axios.post(`${BASE_URL}/auth/login`, userData, {
         headers: { "Content-Type": "application/json" },
@@ -30,16 +47,14 @@ function Login() {
 
       const data = response.data;
       if (data.token) {
-        // ذخیره توکن در cookie (برای دسترسی در کلاینت و سرور)
-        document.cookie = `token=${data.token}; path=/; max-age=3600; secure; samesite=strict`; // max-age=1 ساعت، تنظیمات امنیتی اضافه کردم
+        document.cookie = `token=${data.token}; path=/; max-age=3600; secure; samesite=strict`;
       } else {
         throw new Error("توکن در پاسخ سرور موجود نیست.");
       }
 
       console.log("لاگین موفق:", data);
-      router.push("/shoppingCart"); // ریدایرکت به صفحه مورد نظر فقط در موفقیت
+      router.push("/shoppingCart");
     } catch (err: any) {
-      // سفارشی کردن پیام ارور بر اساس پاسخ سرور
       let errorMessage = "خطایی در ورود رخ داد. لطفاً دوباره امتحان کنید.";
       if (err.response?.data?.message) {
         if (err.response.data.message.includes("not found") || err.response.status === 404) {

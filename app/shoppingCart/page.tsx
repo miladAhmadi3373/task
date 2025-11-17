@@ -1,4 +1,4 @@
-// app/cart/page.tsx
+// app/shoppingCart/page.tsx
 "use client";
 
 import Image from "next/image";
@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { useAuth } from "@/hooks/useAuth";
 
 const BASE_URL = process.env.API_BASE_URL || "http://localhost:5000/api";
 
@@ -29,8 +30,7 @@ interface CartData {
 
 export default function CartPage() {
   const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { isAuthorized, loading } = useAuth("user");
   const [cartData, setCartData] = useState<CartData | null>(null);
   const [cartLoading, setCartLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +38,6 @@ export default function CartPage() {
   // تابع برای چک کردن توکن در cookie
   const getCookie = (name: string): string | null => {
     if (typeof document === "undefined") return null;
-
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) return parts.pop()?.split(";").shift() || null;
@@ -74,21 +73,16 @@ export default function CartPage() {
   };
 
   useEffect(() => {
-    const token = getCookie("token");
-    if (token) {
-      setIsAuthenticated(true);
+    if (isAuthorized) {
       fetchCart();
-    } else {
-      router.push("/login");
     }
-    setLoading(false);
-  }, [router]);
+  }, [isAuthorized]);
 
   // محاسبه مجموع قیمت و تعداد از داده‌های بک‌اند
   const totalPrice: number = cartData?.total || 0;
   const totalCount: number =
     cartData?.items?.reduce(
-      (acc: number, item: CartItem) => acc + item.count, // از count استفاده کن نه quantity
+      (acc: number, item: CartItem) => acc + item.count,
       0
     ) || 0;
 
@@ -103,6 +97,12 @@ export default function CartPage() {
     fetchCart();
   };
 
+  const handleLogout = () => {
+    document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    localStorage.removeItem("userRole");
+    router.push("/login");
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center w-full h-full">
@@ -111,7 +111,7 @@ export default function CartPage() {
     );
   }
 
-  if (!isAuthenticated) {
+  if (!isAuthorized) {
     return null;
   }
 
@@ -133,9 +133,9 @@ export default function CartPage() {
                   key={item.id}
                   className="flex items-center justify-end relative w-[90%] mx-auto text-gray-700"
                 >
-                  <p className="text-[12px] absolute left-5">{`(${item.count})`}</p> {/* count نه quantity */}
+                  <p className="text-[12px] absolute left-5">{`(${item.count})`}</p>
                   <p className="text-[12px] truncate max-w-[150px]">
-                    {item.title} {/* مستقیماً از item.title */}
+                    {item.title}
                   </p>
                 </div>
               ))}
