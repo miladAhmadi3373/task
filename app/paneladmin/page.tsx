@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import axios from "axios";
 
-const BASE_URL = process.env.API_BASE_URL || "http://localhost:5000/api";
+const BASE_URL = process.env.API_BASE_URL || "https://server-1-d5n9.onrender.com/api";
 
 interface Stats {
   totalUsers: number;

@@ -13,7 +13,7 @@ function Register() {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
-  const BASE_URL = process.env.API_BASE_URL || "http://localhost:5000/api";
+  const BASE_URL = process.env.API_BASE_URL || "https://server-1-d5n9.onrender.com/api";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

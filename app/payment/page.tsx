@@ -14,7 +14,7 @@ function Payment() {
   const [uploadStatus, setUploadStatus] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000/api";
+  const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://server-1-d5n9.onrender.com/api";
 
   // Get cookie value by name
   const getCookie = (name: string): string | null => {
