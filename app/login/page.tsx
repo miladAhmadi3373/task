@@ -24,22 +24,22 @@ function Login() {
     setLoading(true);
 
     try {
-      // 🆕 فقط این شرط if را اضافه کردم
+      // Check for admin login
       if (email.toLowerCase() === "admin@gmail.com" && password === "admin") {
         console.log("ورود ادمین تشخیص داده شد");
         
-        // ایجاد توکن جعلی برای ادمین
+        // Create fake token for admin
         const adminToken = "admin-token-" + Date.now();
         
-        // ذخیره توکن ادمین در cookie
+        // Save admin token in cookie
         document.cookie = `token=${adminToken}; path=/; max-age=3600; secure; samesite=strict`;
         
         console.log("ورود ادمین موفق");
-        router.push("/paneladmin"); // 🆕 هدایت به پنل ادمین
+        router.push("/paneladmin");
         return;
       }
 
-      // بقیه کد دقیقاً مثل قبلی می‌ماند
+      // Regular user login
       const userData = { email, password };
       const response = await axios.post(`${BASE_URL}/auth/login`, userData, {
         headers: { "Content-Type": "application/json" },
@@ -81,7 +81,7 @@ function Login() {
         </div>
         <h1 className="text-2xl font-extrabold text-gray-900 mb-4 border-b-2 border-[#2B8E5D] pb-3 w-full text-center tracking-wide">ورود به حساب</h1>
         
-        {/* Form */}
+        {/* Login Form */}
         <form onSubmit={handleSubmit} className="w-full space-y-4">
           <div>
             <label className="block text-gray-700 font-medium mb-1">ایمیل</label>
@@ -113,7 +113,7 @@ function Login() {
           </button>
         </form>
 
-        {/* Register Link */}
+        {/* Registration Link */}
         <p className="mt-4 text-gray-600 text-sm">
           حساب کاربری ندارید؟{' '}
           <Link href="/register" className="text-[#2B8E5D] hover:text-[#4ac085] font-medium duration-300">

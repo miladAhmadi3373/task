@@ -12,7 +12,6 @@ import { useAuth } from "@/hooks/useAuth";
 
 const BASE_URL = process.env.API_BASE_URL || "http://localhost:5000/api";
 
-// تعریف Interfaceها بر اساس ساختار واقعی داده‌ها
 interface CartItem {
   id: number;
   image_src: string;
@@ -35,7 +34,6 @@ export default function CartPage() {
   const [cartLoading, setCartLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // تابع برای چک کردن توکن در cookie
   const getCookie = (name: string): string | null => {
     if (typeof document === "undefined") return null;
     const value = `; ${document.cookie}`;
@@ -44,7 +42,6 @@ export default function CartPage() {
     return null;
   };
 
-  // تابع برای دریافت سبد خرید از بک‌اند با axios
   const fetchCart = async (): Promise<void> => {
     try {
       setCartLoading(true);
@@ -59,13 +56,12 @@ export default function CartPage() {
         },
       });
 
-      // تبدیل داده به آبجکت
       const data = JSON.parse(response.request.response);
-      console.log('داده دریافتی:', data);
+      console.log('Cart data received:', data);
       
       setCartData(data);
     } catch (error: any) {
-      console.error("خطا در دریافت سبد خرید:", error);
+      console.error("Error fetching cart:", error);
       setError("خطا در دریافت سبد خرید از سرور");
     } finally {
       setCartLoading(false);
@@ -78,7 +74,6 @@ export default function CartPage() {
     }
   }, [isAuthorized]);
 
-  // محاسبه مجموع قیمت و تعداد از داده‌های بک‌اند
   const totalPrice: number = cartData?.total || 0;
   const totalCount: number =
     cartData?.items?.reduce(
@@ -87,7 +82,6 @@ export default function CartPage() {
     ) || 0;
 
   const handlePreInvoiceClick = (): void => {
-    // ذخیره اطلاعات سبد خرید در localStorage برای صفحه پیش فاکتور
     if (cartData) {
       localStorage.setItem("shoppingCartItems", JSON.stringify(cartData));
     }
@@ -117,9 +111,9 @@ export default function CartPage() {
 
   return (
     <div className="flex items-center justify-center w-full h-full">
-      {/* shoping cart content */}
+      {/* Shopping cart content */}
       <div className="w-[87%] h-[87%] rounded-xl my-15 bg-gray-100 flex justify-between">
-        {/* left content */}
+        {/* Left sidebar - Cart summary */}
         <div className="w-1/3 bg-green-100 shadow h-[95%] m-3 rounded-xl flex flex-col">
           <div className="text-center w-full mt-10 text-xl">سبد نهایی</div>
           <div className="flex flex-col justify-end pb-20 w-full h-full">
@@ -175,7 +169,7 @@ export default function CartPage() {
           </div>
         </div>
 
-        {/* right content */}
+        {/* Right content - Cart items list */}
         <div className="w-2/3 flex flex-col items-center">
           <h1 className="text-xl mt-2 py-1 px-4 text-[#2B8E5D] border-b border-b-[#2B8E5D]">
             سبد خرید شما

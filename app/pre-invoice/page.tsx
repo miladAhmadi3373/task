@@ -34,7 +34,6 @@ function PreInvoicePage() {
   const [invoiceLoading, setInvoiceLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // تابع برای چک کردن توکن در cookie
   const getCookie = (name: string): string | null => {
     if (typeof document === "undefined") return null;
     const value = `; ${document.cookie}`;
@@ -43,7 +42,6 @@ function PreInvoicePage() {
     return null;
   };
 
-  // دریافت سبد خرید از API
   const fetchCart = async (): Promise<void> => {
     try {
       setInvoiceLoading(true);
@@ -58,16 +56,13 @@ function PreInvoicePage() {
         },
       });
 
-      // تبدیل داده به آبجکت
       const data = JSON.parse(response.request.response);
-      console.log('داده دریافتی از API:', data);
+      console.log('Cart data received from API:', data);
 
-      // مطمئن شویم items وجود دارد و آرایه است
       if (data && data.items && Array.isArray(data.items)) {
         setShoppingCartItems(data.items);
         setTotalPrice(data.total || 0);
         
-        // محاسبه تعداد کل
         const count = data.items.reduce(
           (acc: number, item: CartItem) => acc + item.count,
           0
@@ -78,7 +73,7 @@ function PreInvoicePage() {
       }
 
     } catch (error: any) {
-      console.error("خطا در دریافت سبد خرید:", error);
+      console.error("Error fetching cart:", error);
       setError("خطا در دریافت سبد خرید از سرور");
     } finally {
       setInvoiceLoading(false);
@@ -89,7 +84,6 @@ function PreInvoicePage() {
     if (isAuthorized) {
       fetchCart();
 
-      // Get current date and time
       const now = new Date();
       const formattedDateTime = now.toLocaleString("fa-IR", {
         year: "numeric",
@@ -116,7 +110,6 @@ function PreInvoicePage() {
 
   const handleDownloadInvoice = () => {
     try {
-      // ایجاد محتوای HTML برای پیش فاکتور
       const invoiceHTML = `
         <!DOCTYPE html>
         <html dir="rtl">
@@ -267,17 +260,14 @@ function PreInvoicePage() {
         </html>
       `;
 
-      // ایجاد پنجره جدید برای نمایش پیش فاکتور
       const printWindow = window.open('', '_blank', 'width=1000,height=700,scrollbars=yes');
       if (printWindow) {
         printWindow.document.write(invoiceHTML);
         printWindow.document.close();
-        
-        // فوکوس روی پنجره جدید
         printWindow.focus();
       }
     } catch (error) {
-      console.error('خطا در ایجاد پیش فاکتور:', error);
+      console.error('Error generating invoice:', error);
       alert('خطا در ایجاد پیش فاکتور. لطفاً دوباره تلاش کنید.');
     }
   };
@@ -320,18 +310,17 @@ function PreInvoicePage() {
 
   return (
     <div className="flex items-center justify-evenly w-full h-full" dir="rtl">
-      {/* Pre-invoice content */}
+      {/* Invoice details section */}
       <div className="w-[50%] h-auto my-3 bg-white shadow-lg rounded-2xl p-4 flex flex-col">
         <h1 className="text-2xl text-center mb-8 text-[#2B8E5D] border-b-2 border-[#2B8E5D] pb-4 font-bold">
           پیش فاکتور
         </h1>
 
-        {/* Date and Time */}
         <div className="mb-4 text-right text-lg text-gray-700">
           <p>تاریخ و ساعت صدور: {currentDateTime}</p>
         </div>
 
-        {/* Items List */}
+        {/* Items table */}
         <div className="bg-gray-50 rounded-xl shadow-inner p-6">
           <table className="w-full table-auto border-collapse border border-gray-300">
             <thead>
@@ -386,7 +375,7 @@ function PreInvoicePage() {
         </div>
       </div>
 
-      {/* Confirmation section */}
+      {/* Action buttons section */}
       <div className="w-[30%] h-[40%] bg-gray-100 shadow-lg rounded-2xl p-8 flex flex-col items-center justify-center mt-5">
         <p className="mb-8 text-lg text-gray-800">
           آیا از صحت اطلاعات اطمینان دارید؟

@@ -13,7 +13,7 @@ function Register() {
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
-  const BASE_URL = process.env.API_BASE_URL || "http://localhost:5000/api"; // مقدار پیش‌فرض برای توسعه محلی
+  const BASE_URL = process.env.API_BASE_URL || "http://localhost:5000/api";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,12 +36,11 @@ function Register() {
 
       const data = response.data;
       if (data.token) {
-        // ذخیره توکن در cookie (برای دسترسی در کلاینت و سرور)
-        document.cookie = `token=${data.token}; path=/; max-age=3600; secure; samesite=strict`; // max-age=1 ساعت، تنظیمات امنیتی اضافه کردم
+        document.cookie = `token=${data.token}; path=/; max-age=3600; secure; samesite=strict`;
       } else {
         throw new Error("توکن در پاسخ سرور موجود نیست.");
       }
-      router.push("/login"); // ریدایرکت به صفحه لاگین
+      router.push("/login");
     } catch (err: any) {
       setError(err.response?.data?.message || "خطایی در ثبت‌نام رخ داد. لطفاً دوباره امتحان کنید.");
     } finally {
@@ -75,7 +74,7 @@ function Register() {
           ثبت نام
         </h1>
 
-        {/* Form */}
+        {/* Registration Form */}
         <form onSubmit={handleSubmit} className="w-full space-y-4">
           <div>
             <label className="block text-gray-700 font-medium mb-1">
@@ -135,7 +134,7 @@ function Register() {
           </button>
         </form>
 
-        {/* Login Link */}
+        {/* Login redirect link */}
         <p className="mt-4 text-gray-600 text-sm">
           حساب کاربری دارید؟{" "}
           <Link

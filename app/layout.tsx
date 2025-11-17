@@ -68,7 +68,7 @@ export default function RootLayout({
         <div className="w-full h-1/12 bg-[#2B8E5D] flex items-center justify-between px-10">
           {/* header left */}
           <div className="flex items-center justify-center">
-            <Link href={"/"}>
+            <Link href={"/shoppingCart"}>
               <Image
                 src={"/cart-image.png"}
                 width={50}
