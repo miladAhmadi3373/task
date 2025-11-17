@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useAuth } from "@/hooks/useAuth";
 
-const BASE_URL = process.env.API_BASE_URL || "http://localhost:5000/api";
+const BASE_URL = process.env.API_BASE_URL || "https://server-1-d5n9.onrender.com/api";
 
 interface CartItem {
   id: number;
