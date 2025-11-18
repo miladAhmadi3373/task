@@ -15,6 +15,7 @@ function Register() {
   const router = useRouter();
   const BASE_URL = process.env.API_BASE_URL || "https://server-1-d5n9.onrender.com/api";
 
+  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -50,13 +51,13 @@ function Register() {
 
   return (
     <div
-      className="flex items-center justify-center w-full h-full bg-linear-to-br from-gray-50 to-gray-200"
+      className="flex items-center justify-center w-full min-h-screen bg-gradient-to-br from-gray-50 to-gray-200"
       dir="rtl"
     >
-      <div className="w-[30%] bg-white shadow-2xl rounded-3xl p-4 flex flex-col items-center">
-        <div className="mb-6">
+      <div className="w-full max-w-md bg-white shadow-2xl rounded-3xl p-6 md:p-8 flex flex-col items-center">
+        <div className="mb-4 md:mb-6">
           <svg
-            className="w-12 h-12 text-[#2B8E5D]"
+            className="w-10 h-10 md:w-12 md:h-12 text-[#2B8E5D]"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -70,57 +71,57 @@ function Register() {
             />
           </svg>
         </div>
-        <h1 className="text-2xl font-extrabold text-gray-900 mb-4 border-b-2 border-[#2B8E5D] pb-3 w-full text-center tracking-wide">
+        <h1 className="text-xl md:text-2xl font-extrabold text-gray-900 mb-3 md:mb-4 border-b-2 border-[#2B8E5D] pb-2 md:pb-3 w-full text-center tracking-wide">
           ثبت نام
         </h1>
 
         {/* Registration Form */}
         <form onSubmit={handleSubmit} className="w-full space-y-4">
           <div>
-            <label className="block text-gray-700 font-medium mb-1">
+            <label className="block text-gray-700 font-medium mb-1 text-sm md:text-base">
               نام کامل
             </label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-full focus:outline-none focus:border-[#2B8E5D] transition duration-300"
+              className="w-full px-3 py-2 border border-gray-300 rounded-full focus:outline-none focus:border-[#2B8E5D] transition duration-300 text-sm md:text-base"
               required
             />
           </div>
           <div>
-            <label className="block text-gray-700 font-medium mb-1">
+            <label className="block text-gray-700 font-medium mb-1 text-sm md:text-base">
               ایمیل
             </label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-full focus:outline-none focus:border-[#2B8E5D] transition duration-300"
+              className="w-full px-3 py-2 border border-gray-300 rounded-full focus:outline-none focus:border-[#2B8E5D] transition duration-300 text-sm md:text-base"
               required
             />
           </div>
           <div>
-            <label className="block text-gray-700 font-medium mb-1">
+            <label className="block text-gray-700 font-medium mb-1 text-sm md:text-base">
               رمز عبور
             </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-full focus:outline-none focus:border-[#2B8E5D] transition duration-300"
+              className="w-full px-3 py-2 border border-gray-300 rounded-full focus:outline-none focus:border-[#2B8E5D] transition duration-300 text-sm md:text-base"
               required
             />
           </div>
           <div>
-            <label className="block text-gray-700 font-medium mb-1">
+            <label className="block text-gray-700 font-medium mb-1 text-sm md:text-base">
               تایید رمز عبور
             </label>
             <input
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-full focus:outline-none focus:border-[#2B8E5D] transition duration-300"
+              className="w-full px-3 py-2 border border-gray-300 rounded-full focus:outline-none focus:border-[#2B8E5D] transition duration-300 text-sm md:text-base"
               required
             />
           </div>
@@ -128,14 +129,14 @@ function Register() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 duration-300 hover:shadow-2xl cursor-pointer hover:bg-[#4ac085] text-white bg-[#2B8E5D] rounded-full text-base font-semibold tracking-wide transform hover:-translate-y-1 disabled:opacity-50"
+            className="w-full py-2 md:py-3 duration-300 hover:shadow-2xl cursor-pointer hover:bg-[#4ac085] text-white bg-[#2B8E5D] rounded-full text-sm md:text-base font-semibold tracking-wide transform hover:-translate-y-1 disabled:opacity-50"
           >
             {loading ? "در حال ثبت‌نام..." : "ثبت نام"}
           </button>
         </form>
 
         {/* Login redirect link */}
-        <p className="mt-4 text-gray-600 text-sm">
+        <p className="mt-3 md:mt-4 text-gray-600 text-sm">
           حساب کاربری دارید؟{" "}
           <Link
             href="/login"

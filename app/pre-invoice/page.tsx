@@ -115,6 +115,7 @@ function PreInvoicePage() {
         <html dir="rtl">
         <head>
           <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <style>
             body {
               font-family: 'Tahoma', 'Arial', sans-serif;
@@ -182,6 +183,14 @@ function PreInvoicePage() {
             @media print {
               body { margin: 0; padding: 15px; }
               .no-print { display: none; }
+            }
+            @media (max-width: 768px) {
+              body { padding: 10px; }
+              .header h1 { font-size: 22px; }
+              .invoice-info { flex-direction: column; }
+              .customer-info, .invoice-details { min-width: 100%; }
+              table { font-size: 12px; }
+              th, td { padding: 8px; }
             }
           </style>
         </head>
@@ -274,7 +283,7 @@ function PreInvoicePage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center w-full h-full">
+      <div className="flex items-center justify-center w-full h-full min-h-screen">
         <div className="text-xl">در حال بررسی دسترسی...</div>
       </div>
     );
@@ -286,7 +295,7 @@ function PreInvoicePage() {
 
   if (invoiceLoading) {
     return (
-      <div className="flex items-center justify-center w-full h-full">
+      <div className="flex items-center justify-center w-full h-full min-h-screen">
         <div className="text-xl">در حال بارگذاری پیش فاکتور...</div>
       </div>
     );
@@ -294,7 +303,7 @@ function PreInvoicePage() {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center w-full h-full">
+      <div className="flex items-center justify-center w-full h-full min-h-screen">
         <div className="text-center">
           <div className="text-red-500 text-xl mb-4">{error}</div>
           <button
@@ -309,53 +318,53 @@ function PreInvoicePage() {
   }
 
   return (
-    <div className="flex items-center justify-evenly w-full h-full" dir="rtl">
+    <div className="flex flex-col lg:flex-row items-center justify-evenly w-full min-h-screen p-4" dir="rtl">
       {/* Invoice details section */}
-      <div className="w-[50%] h-auto my-3 bg-white shadow-lg rounded-2xl p-4 flex flex-col">
-        <h1 className="text-2xl text-center mb-8 text-[#2B8E5D] border-b-2 border-[#2B8E5D] pb-4 font-bold">
+      <div className="w-full lg:w-[60%] xl:w-[50%] h-auto my-3 bg-white shadow-lg rounded-2xl p-4 lg:p-6 flex flex-col">
+        <h1 className="text-xl lg:text-2xl text-center mb-6 lg:mb-8 text-[#2B8E5D] border-b-2 border-[#2B8E5D] pb-3 lg:pb-4 font-bold">
           پیش فاکتور
         </h1>
 
-        <div className="mb-4 text-right text-lg text-gray-700">
+        <div className="mb-4 text-right text-base lg:text-lg text-gray-700">
           <p>تاریخ و ساعت صدور: {currentDateTime}</p>
         </div>
 
         {/* Items table */}
-        <div className="bg-gray-50 rounded-xl shadow-inner p-6">
-          <table className="w-full table-auto border-collapse border border-gray-300">
+        <div className="bg-gray-50 rounded-xl shadow-inner p-3 lg:p-6 overflow-x-auto">
+          <table className="w-full table-auto border-collapse border border-gray-300 min-w-[600px]">
             <thead>
               <tr className="bg-[#2B8E5D] text-white">
-                <th className="p-3 border border-gray-300">تصویر</th>
-                <th className="p-3 border border-gray-300">عنوان</th>
-                <th className="p-3 border border-gray-300">توضیح</th>
-                <th className="p-3 border border-gray-300">تعداد</th>
-                <th className="p-3 border border-gray-300">قیمت واحد</th>
-                <th className="p-3 border border-gray-300">جمع</th>
+                <th className="p-2 lg:p-3 border border-gray-300 text-xs lg:text-sm">تصویر</th>
+                <th className="p-2 lg:p-3 border border-gray-300 text-xs lg:text-sm">عنوان</th>
+                <th className="p-2 lg:p-3 border border-gray-300 text-xs lg:text-sm hidden md:table-cell">توضیح</th>
+                <th className="p-2 lg:p-3 border border-gray-300 text-xs lg:text-sm">تعداد</th>
+                <th className="p-2 lg:p-3 border border-gray-300 text-xs lg:text-sm">قیمت واحد</th>
+                <th className="p-2 lg:p-3 border border-gray-300 text-xs lg:text-sm">جمع</th>
               </tr>
             </thead>
             <tbody>
               {shoppingCartItems.map((item: CartItem) => (
                 <tr key={item.id} className="hover:bg-gray-100">
-                  <td className="p-3 border border-gray-300">
+                  <td className="p-2 lg:p-3 border border-gray-300">
                     <img
                       src={`/${item.image_src}`}
                       alt={item.title}
-                      className="w-12 h-12 object-cover rounded-md mx-auto"
+                      className="w-8 h-8 lg:w-12 lg:h-12 object-cover rounded-md mx-auto"
                     />
                   </td>
-                  <td className="p-3 border border-gray-300 text-gray-800 font-medium">
+                  <td className="p-2 lg:p-3 border border-gray-300 text-gray-800 font-medium text-xs lg:text-sm">
                     {item.title}
                   </td>
-                  <td className="p-3 border border-gray-300 text-gray-600 text-sm">
+                  <td className="p-2 lg:p-3 border border-gray-300 text-gray-600 text-xs hidden md:table-cell">
                     {item.desc}
                   </td>
-                  <td className="p-3 border border-gray-300 text-center">
+                  <td className="p-2 lg:p-3 border border-gray-300 text-center text-xs lg:text-sm">
                     {item.count}
                   </td>
-                  <td className="p-3 border border-gray-300 text-right">
+                  <td className="p-2 lg:p-3 border border-gray-300 text-right text-xs lg:text-sm">
                     {item.price.toLocaleString()} تومان
                   </td>
-                  <td className="p-3 border border-gray-300 text-right font-medium">
+                  <td className="p-2 lg:p-3 border border-gray-300 text-right font-medium text-xs lg:text-sm">
                     {(item.price * item.count).toLocaleString()} تومان
                   </td>
                 </tr>
@@ -363,10 +372,10 @@ function PreInvoicePage() {
             </tbody>
             <tfoot>
               <tr className="bg-gray-200 font-bold">
-                <td colSpan={3} className="p-3 border border-gray-300 text-right">
+                <td colSpan={3} className="p-2 lg:p-3 border border-gray-300 text-right text-xs lg:text-sm">
                   تعداد کالا: {totalCount}
                 </td>
-                <td colSpan={3} className="p-3 border border-gray-300 text-right">
+                <td colSpan={3} className="p-2 lg:p-3 border border-gray-300 text-right text-xs lg:text-sm">
                   جمع کل: {totalPrice.toLocaleString()} تومان
                 </td>
               </tr>
@@ -376,27 +385,27 @@ function PreInvoicePage() {
       </div>
 
       {/* Action buttons section */}
-      <div className="w-[30%] h-[40%] bg-gray-100 shadow-lg rounded-2xl p-8 flex flex-col items-center justify-center mt-5">
-        <p className="mb-8 text-lg text-gray-800">
+      <div className="w-full lg:w-[35%] xl:w-[30%] h-auto lg:h-[40%] bg-gray-100 shadow-lg rounded-2xl p-6 lg:p-8 flex flex-col items-center justify-center mt-5 lg:mt-0">
+        <p className="mb-6 lg:mb-8 text-base lg:text-lg text-gray-800 text-center">
           آیا از صحت اطلاعات اطمینان دارید؟
         </p>
-        <div className="w-full flex flex-col items-center justify-center mb-6 space-y-4">
+        <div className="w-full flex flex-col items-center justify-center mb-4 lg:mb-6 space-y-3 lg:space-y-4">
           <Link
             href={"/payment"}
-            className="w-full px-6 py-3 flex items-center justify-center duration-300 hover:shadow-xl cursor-pointer hover:bg-[#4ac085] text-white bg-[#2B8E5D] rounded-xl text-sm font-medium"
+            className="w-full px-4 lg:px-6 py-3 flex items-center justify-center duration-300 hover:shadow-xl cursor-pointer hover:bg-[#4ac085] text-white bg-[#2B8E5D] rounded-xl text-sm font-medium text-center"
           >
             تایید و ادامه فرایند خرید
           </Link>
           <button 
             onClick={handleDownloadInvoice}
-            className="w-full px-6 py-3 flex items-center justify-center duration-300 hover:shadow-xl cursor-pointer hover:bg-[#5656c4] text-white bg-[#253895] rounded-xl text-sm font-medium"
+            className="w-full px-4 lg:px-6 py-3 flex items-center justify-center duration-300 hover:shadow-xl cursor-pointer hover:bg-[#5656c4] text-white bg-[#253895] rounded-xl text-sm font-medium"
           >
             دریافت فایل پیش فاکتور
           </button>
         </div>
         <Link
           href={"/shoppingCart"}
-          className="text-[#c73d3d] border-b-2 border-[#c73d3d] hover:text-[#da786f] duration-300 cursor-pointer text-base"
+          className="text-[#c73d3d] border-b-2 border-[#c73d3d] hover:text-[#da786f] duration-300 cursor-pointer text-sm lg:text-base text-center"
         >
           لغو خرید
         </Link>

@@ -129,7 +129,7 @@ function Payment() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center w-full h-full bg-gray-50">
+      <div className="flex items-center justify-center w-full min-h-screen bg-gray-50">
         <div className="text-xl">در حال بارگذاری...</div>
       </div>
     );
@@ -141,40 +141,40 @@ function Payment() {
 
   return (
     <div
-      className="flex items-center justify-center w-full h-full bg-gray-50"
+      className="flex items-center justify-center w-full min-h-screen bg-gray-50 p-4"
       dir="rtl"
     >
-      <div className="w-[40%] h-[95%] bg-white shadow-xl rounded-2xl p-6 flex flex-col items-center">
+      <div className="w-full lg:w-[90%] xl:w-[40%] h-auto bg-white shadow-xl rounded-2xl p-4 lg:p-6 flex flex-col items-center">
         {/* Header with Logout */}
-        <div className="w-full flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold text-gray-800 border-b-2 border-gray-300 pb-4 w-full text-center">
+        <div className="w-full flex flex-col lg:flex-row justify-between items-center mb-4 lg:mb-6 space-y-2 lg:space-y-0">
+          <h1 className="text-xl lg:text-2xl font-bold text-gray-800 border-b-2 border-gray-300 pb-3 lg:pb-4 w-full text-center">
             پرداخت کارت به کارت
           </h1>
           <button
             onClick={handleLogout}
-            className="text-sm text-red-600 hover:text-red-800 duration-300"
+            className="text-sm text-red-600 hover:text-red-800 duration-300 whitespace-nowrap"
           >
             خروج
           </button>
         </div>
 
         {/* Card Information */}
-        <div className="w-full mb-4 p-3 bg-gray-100 rounded-xl shadow-inner">
-          <p className="text-lg font-semibold text-gray-800 mb-2">
+        <div className="w-full mb-4 p-3 lg:p-4 bg-gray-100 rounded-xl shadow-inner">
+          <p className="text-base lg:text-lg font-semibold text-gray-800 mb-2">
             اطلاعات کارت برای انتقال وجه:
           </p>
           <div className="flex flex-col space-y-2 text-gray-700">
-            <p className="text-[#166a40] font-bold">
+            <p className="text-[#166a40] font-bold text-sm lg:text-base">
               <span className="font-medium text-gray-700">
                 نام دارنده کارت:
               </span>{" "}
               علی احمدی
             </p>
-            <p className="text-[#166a40] font-bold">
+            <p className="text-[#166a40] font-bold text-sm lg:text-base break-all">
               <span className="font-medium text-gray-700">شماره کارت:</span>{" "}
               6679-9637-1015-5892
             </p>
-            <p className="text-sm text-gray-600 mt-4">
+            <p className="text-xs lg:text-sm text-gray-600 mt-3 lg:mt-4">
               لطفاً مبلغ کل سفارش را از طریق کارت به کارت (با استفاده از
               اپلیکیشن بانکی یا ATM) به شماره کارت فوق واریز کنید.
             </p>
@@ -182,20 +182,20 @@ function Payment() {
         </div>
 
         {/* Upload Receipt */}
-        <div className="w-full mb-8">
-          <label className="block text-lg font-semibold text-gray-800 mb-4">
+        <div className="w-full mb-6 lg:mb-8">
+          <label className="block text-base lg:text-lg font-semibold text-gray-800 mb-3 lg:mb-4">
             آپلود رسید پرداخت:
           </label>
           <input
             type="file"
             accept="image/*,application/pdf"
             onChange={handleFileChange}
-            className="w-full p-4 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-gray-400 transition duration-300"
+            className="w-full p-3 lg:p-4 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-gray-400 transition duration-300 text-sm"
             disabled={isLoading}
           />
           {uploadStatus && (
             <p
-              className={`mt-2 text-sm ${
+              className={`mt-2 text-xs lg:text-sm ${
                 uploadStatus.includes("✅") ||
                 uploadStatus.includes("🎉") ||
                 uploadStatus.includes("موفقیت")
@@ -208,7 +208,7 @@ function Payment() {
               {uploadStatus}
             </p>
           )}
-          <p className="text-sm text-gray-500 mt-2">
+          <p className="text-xs lg:text-sm text-gray-500 mt-2">
             فایل رسید را به صورت تصویر یا PDF آپلود کنید.
           </p>
           
@@ -225,7 +225,7 @@ function Payment() {
           <button
             onClick={handleUploadReceipt}
             disabled={!receiptFile || isLoading}
-            className={`w-full h-12 flex items-center justify-center duration-300 cursor-pointer rounded-xl text-white font-medium ${
+            className={`w-full h-12 flex items-center justify-center duration-300 cursor-pointer rounded-xl text-white font-medium text-sm lg:text-base ${
               receiptFile && !isLoading
                 ? "bg-[#2B8E5D] hover:bg-[#4ac085] hover:shadow-lg"
                 : "bg-gray-400 cursor-not-allowed"
@@ -233,7 +233,7 @@ function Payment() {
           >
             {isLoading ? (
               <div className="flex items-center">
-                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white ml-2"></div>
                 در حال آپلود...
               </div>
             ) : (
@@ -243,7 +243,7 @@ function Payment() {
 
           <Link
             href="/pre-invoice"
-            className="mt-4 text-gray-600 hover:text-gray-800 duration-300 border-b border-gray-600"
+            className="mt-4 text-gray-600 hover:text-gray-800 duration-300 border-b border-gray-600 text-sm lg:text-base text-center"
           >
             بازگشت به پیش فاکتور
           </Link>

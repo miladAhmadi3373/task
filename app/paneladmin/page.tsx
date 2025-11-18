@@ -255,7 +255,7 @@ function AdminPanel() {
     };
     return (
       <span
-        className={`px-3 py-1 rounded-full text-sm font-medium ${config.color}`}
+        className={`px-2 py-1 rounded-full text-xs font-medium ${config.color}`}
       >
         {config.text}
       </span>
@@ -309,11 +309,11 @@ function AdminPanel() {
     <div className="min-h-screen bg-gray-50" dir="rtl">
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
+          <div className="flex flex-col sm:flex-row justify-between items-center py-4 space-y-3 sm:space-y-0">
             <div className="flex items-center">
               <div className="bg-[#2B8E5D] p-2 rounded-lg">
                 <svg
-                  className="w-8 h-8 text-white"
+                  className="w-6 h-6 sm:w-8 sm:h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -327,23 +327,23 @@ function AdminPanel() {
                 </svg>
               </div>
               <div className="mr-3">
-                <h1 className="text-2xl font-bold text-gray-900">
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
                   پنل مدیریت فروشگاه
                 </h1>
-                <p className="text-sm text-gray-500">
+                <p className="text-xs sm:text-sm text-gray-500">
                   مدیریت سفارشات و تایید پرداخت‌ها
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center space-x-4 space-x-reverse">
-              <div className="text-right ml-2">
+            <div className="flex items-center space-x-3 space-x-reverse">
+              <div className="text-right">
                 <p className="text-sm font-medium text-gray-900">مدیر سیستم</p>
                 <p className="text-xs text-gray-500">admin</p>
               </div>
-              <div className="w-10 h-10 bg-[#2B8E5D] rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#2B8E5D] rounded-full flex items-center justify-center">
                 <svg
-                  className="w-6 h-6 text-white"
+                  className="w-4 h-4 sm:w-6 sm:h-6 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -361,14 +361,14 @@ function AdminPanel() {
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6">
         {/* Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-2xl shadow-lg p-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
+          <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-6">
             <div className="flex items-center">
-              <div className="bg-blue-100 p-3 rounded-xl">
+              <div className="bg-blue-100 p-2 sm:p-3 rounded-xl">
                 <svg
-                  className="w-6 h-6 text-blue-600"
+                  className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -382,10 +382,10 @@ function AdminPanel() {
                 </svg>
               </div>
               <div className="mr-3">
-                <p className="text-sm text-gray-500">کل کاربران</p>
-                <div className="text-2xl font-bold text-gray-900">
+                <p className="text-xs sm:text-sm text-gray-500">کل کاربران</p>
+                <div className="text-lg sm:text-2xl font-bold text-gray-900">
                   {statsLoading ? (
-                    <div className="animate-pulse bg-gray-200 h-6 w-16 rounded"></div>
+                    <div className="animate-pulse bg-gray-200 h-4 sm:h-6 w-12 sm:w-16 rounded"></div>
                   ) : (
                     stats.totalUsers.toLocaleString("fa-IR")
                   )}
@@ -394,11 +394,11 @@ function AdminPanel() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6">
+          <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-6">
             <div className="flex items-center">
-              <div className="bg-green-100 p-3 rounded-xl">
+              <div className="bg-green-100 p-2 sm:p-3 rounded-xl">
                 <svg
-                  className="w-6 h-6 text-green-600"
+                  className="w-5 h-5 sm:w-6 sm:h-6 text-green-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -412,10 +412,10 @@ function AdminPanel() {
                 </svg>
               </div>
               <div className="mr-3">
-                <p className="text-sm text-gray-500">سفارشات کل</p>
-                <div className="text-2xl font-bold text-gray-900">
+                <p className="text-xs sm:text-sm text-gray-500">سفارشات کل</p>
+                <div className="text-lg sm:text-2xl font-bold text-gray-900">
                   {statsLoading ? (
-                    <div className="animate-pulse bg-gray-200 h-6 w-16 rounded"></div>
+                    <div className="animate-pulse bg-gray-200 h-4 sm:h-6 w-12 sm:w-16 rounded"></div>
                   ) : (
                     stats.totalOrders.toLocaleString("fa-IR")
                   )}
@@ -424,11 +424,11 @@ function AdminPanel() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6">
+          <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-6">
             <div className="flex items-center">
-              <div className="bg-purple-100 p-3 rounded-xl">
+              <div className="bg-purple-100 p-2 sm:p-3 rounded-xl">
                 <svg
-                  className="w-6 h-6 text-purple-600"
+                  className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -442,10 +442,10 @@ function AdminPanel() {
                 </svg>
               </div>
               <div className="mr-3">
-                <p className="text-sm text-gray-500">درآمد کل</p>
-                <div className="text-2xl font-bold text-gray-900">
+                <p className="text-xs sm:text-sm text-gray-500">درآمد کل</p>
+                <div className="text-lg sm:text-2xl font-bold text-gray-900">
                   {statsLoading ? (
-                    <div className="animate-pulse bg-gray-200 h-6 w-20 rounded"></div>
+                    <div className="animate-pulse bg-gray-200 h-4 sm:h-6 w-16 sm:w-20 rounded"></div>
                   ) : (
                     formatPrice(stats.totalRevenue)
                   )}
@@ -454,11 +454,11 @@ function AdminPanel() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6">
+          <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-6">
             <div className="flex items-center">
-              <div className="bg-yellow-100 p-3 rounded-xl">
+              <div className="bg-yellow-100 p-2 sm:p-3 rounded-xl">
                 <svg
-                  className="w-6 h-6 text-yellow-600"
+                  className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-600"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -472,10 +472,10 @@ function AdminPanel() {
                 </svg>
               </div>
               <div className="mr-3">
-                <p className="text-sm text-gray-500">در انتظار تایید</p>
-                <div className="text-2xl font-bold text-gray-900">
+                <p className="text-xs sm:text-sm text-gray-500">در انتظار تایید</p>
+                <div className="text-lg sm:text-2xl font-bold text-gray-900">
                   {statsLoading ? (
-                    <div className="animate-pulse bg-gray-200 h-6 w-16 rounded"></div>
+                    <div className="animate-pulse bg-gray-200 h-4 sm:h-6 w-12 sm:w-16 rounded"></div>
                   ) : (
                     stats.pendingVerification.toLocaleString("fa-IR")
                   )}
@@ -486,22 +486,22 @@ function AdminPanel() {
         </div>
 
         {/* Orders Management Tabs */}
-        <div className="bg-white rounded-2xl shadow-lg mb-8">
-          <div className="border-b border-gray-200">
-            <nav className="flex -mb-px">
+        <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg mb-6 sm:mb-8">
+          <div className="border-b border-gray-200 overflow-x-auto">
+            <nav className="flex min-w-max">
               <button
                 onClick={() => setActiveTab("pending")}
-                className={`py-4 px-6 text-center border-b-2 font-medium text-sm ${
+                className={`py-3 sm:py-4 px-4 sm:px-6 text-center border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap ${
                   activeTab === "pending"
                     ? "border-[#2B8E5D] text-[#2B8E5D]"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                 }`}
               >
-                سفارشات در انتظار تایید ({pendingReceipts.length})
+                سفارشات در انتظار ({pendingReceipts.length})
               </button>
               <button
                 onClick={() => setActiveTab("all")}
-                className={`py-4 px-6 text-center border-b-2 font-medium text-sm ${
+                className={`py-3 sm:py-4 px-4 sm:px-6 text-center border-b-2 font-medium text-xs sm:text-sm whitespace-nowrap ${
                   activeTab === "all"
                     ? "border-[#2B8E5D] text-[#2B8E5D]"
                     : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
@@ -514,25 +514,25 @@ function AdminPanel() {
 
           {/* Orders Table */}
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full min-w-[800px]">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     مشتری
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     محصولات
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     مبلغ
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     تاریخ
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     وضعیت
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     عملیات
                   </th>
                 </tr>
@@ -542,14 +542,14 @@ function AdminPanel() {
                   <tr>
                     <td colSpan={6} className="px-6 py-8 text-center">
                       <div className="flex justify-center">
-                        <div className="w-8 h-8 border-4 border-[#2B8E5D] border-t-transparent rounded-full animate-spin"></div>
+                        <div className="w-6 h-6 sm:w-8 sm:h-8 border-4 border-[#2B8E5D] border-t-transparent rounded-full animate-spin"></div>
                       </div>
-                      <p className="text-gray-500 mt-2">در حال بارگذاری سفارشات...</p>
+                      <p className="text-gray-500 mt-2 text-sm">در حال بارگذاری سفارشات...</p>
                     </td>
                   </tr>
                 ) : getOrdersToDisplay().length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="px-6 py-8 text-center text-gray-500">
+                    <td colSpan={6} className="px-6 py-8 text-center text-gray-500 text-sm">
                       {activeTab === "pending" 
                         ? "هیچ سفارشی در انتظار تایید وجود ندارد" 
                         : "هیچ سفارشی یافت نشد"}
@@ -561,18 +561,18 @@ function AdminPanel() {
                       key={order.id}
                       className="hover:bg-gray-50 transition duration-150"
                     >
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                         <div>
                           <div className="text-sm font-medium text-gray-900">
                             {order.userName}
                           </div>
-                          <div className="text-sm text-gray-500">
+                          <div className="text-xs text-gray-500">
                             {order.userEmail}
                           </div>
                         </div>
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="text-sm text-gray-900">
+                      <td className="px-3 sm:px-6 py-4">
+                        <div className="text-sm text-gray-900 max-w-[150px] sm:max-w-none truncate">
                           {order.items
                             .map(
                               (item) => `${item.name} (${item.quantity} عدد)`
@@ -580,21 +580,21 @@ function AdminPanel() {
                             .join("، ")}
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                         {formatPrice(order.total)}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500">
                         {formatDate(order.createdAt)}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                         {getStatusBadge(order.status)}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                      <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <button
                           onClick={() => setSelectedOrder(order)}
-                          className="text-[#2B8E5D] hover:text-[#4ac085] ml-4"
+                          className="text-[#2B8E5D] hover:text-[#4ac085] text-xs sm:text-sm"
                         >
-                          مشاهده جزئیات
+                          مشاهده
                         </button>
                       </td>
                     </tr>
@@ -608,10 +608,10 @@ function AdminPanel() {
 
       {/* Order Details Modal */}
       {selectedOrder && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-              <h3 className="text-lg font-bold text-gray-900">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-3 sm:p-4 z-50">
+          <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div className="px-4 sm:px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+              <h3 className="text-base sm:text-lg font-bold text-gray-900">
                 جزئیات سفارش #{selectedOrder.id}
               </h3>
               <button
@@ -619,7 +619,7 @@ function AdminPanel() {
                 className="text-gray-400 hover:text-gray-600"
               >
                 <svg
-                  className="w-6 h-6"
+                  className="w-5 h-5 sm:w-6 sm:h-6"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -634,13 +634,13 @@ function AdminPanel() {
               </button>
             </div>
 
-            <div className="p-6 space-y-6">
+            <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
               {/* Customer Information */}
               <div>
                 <h4 className="text-sm font-medium text-gray-500 mb-2">
                   اطلاعات مشتری
                 </h4>
-                <div className="bg-gray-50 rounded-lg p-4">
+                <div className="bg-gray-50 rounded-lg p-3 sm:p-4 text-sm">
                   <p>
                     <strong>نام:</strong> {selectedOrder.userName}
                   </p>
@@ -655,26 +655,26 @@ function AdminPanel() {
                 <h4 className="text-sm font-medium text-gray-500 mb-2">
                   محصولات سفارش
                 </h4>
-                <div className="bg-gray-50 rounded-lg p-4">
+                <div className="bg-gray-50 rounded-lg p-3 sm:p-4">
                   {selectedOrder.items.map((item, index) => (
                     <div
                       key={item.id || index}
-                      className="flex justify-between items-center py-2 border-b border-gray-200 last:border-b-0"
+                      className="flex justify-between items-center py-2 border-b border-gray-200 last:border-b-0 text-sm"
                     >
-                      <div>
-                        <p className="font-medium">{item.name}</p>
-                        <p className="text-sm text-gray-500">
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium truncate">{item.name}</p>
+                        <p className="text-xs text-gray-500">
                           {item.quantity} عدد × {formatPrice(item.price)}
                         </p>
                       </div>
-                      <p className="font-medium">
+                      <p className="font-medium flex-shrink-0 mr-2">
                         {formatPrice(item.price * item.quantity)}
                       </p>
                     </div>
                   ))}
-                  <div className="flex justify-between items-center pt-4 mt-4 border-t border-gray-300">
+                  <div className="flex justify-between items-center pt-3 mt-3 border-t border-gray-300 text-sm sm:text-base">
                     <p className="font-bold">جمع کل:</p>
-                    <p className="font-bold text-lg">
+                    <p className="font-bold">
                       {formatPrice(selectedOrder.total)}
                     </p>
                   </div>
@@ -687,24 +687,23 @@ function AdminPanel() {
                   <h4 className="text-sm font-medium text-gray-500 mb-2">
                     رسید پرداخت
                   </h4>
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-sm text-gray-600">
-                        آپلود شده در:{" "}
-                        {formatDate(selectedOrder.receipt.uploadedAt)}
+                  <div className="bg-gray-50 rounded-lg p-3 sm:p-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-3 space-y-2 sm:space-y-0">
+                      <span className="text-xs sm:text-sm text-gray-600">
+                        آپلود شده در: {formatDate(selectedOrder.receipt.uploadedAt)}
                       </span>
                       <a
                         href={`http://localhost:5000${selectedOrder.receipt.path}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#2B8E5D] hover:text-[#4ac085] text-sm font-medium"
+                        className="text-[#2B8E5D] hover:text-[#4ac085] text-xs sm:text-sm font-medium"
                       >
                         مشاهده رسید
                       </a>
                     </div>
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 sm:p-8 text-center">
                       <svg
-                        className="w-12 h-12 text-gray-400 mx-auto mb-3"
+                        className="w-8 h-8 sm:w-12 sm:h-12 text-gray-400 mx-auto mb-2 sm:mb-3"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -716,7 +715,7 @@ function AdminPanel() {
                           d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                         />
                       </svg>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-xs sm:text-sm text-gray-600 break-all">
                         {selectedOrder.receipt.filename}
                       </p>
                     </div>
@@ -726,17 +725,17 @@ function AdminPanel() {
 
               {/* Action Buttons */}
               {selectedOrder.status === "pending_verification" && (
-                <div className="flex space-x-3 space-x-reverse">
+                <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 sm:space-x-reverse">
                   <button
                     onClick={() =>
                       verifyReceipt(selectedOrder.id, false, "رسید نامعتبر است")
                     }
                     disabled={actionLoading === selectedOrder.id}
-                    className="flex-1 bg-red-600 text-white py-3 px-4 rounded-lg hover:bg-red-700 transition duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 bg-red-600 text-white py-2 sm:py-3 px-4 rounded-lg hover:bg-red-700 transition duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                   >
                     {actionLoading === selectedOrder.id ? (
                       <div className="flex items-center justify-center">
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin ml-2"></div>
                         در حال پردازش...
                       </div>
                     ) : (
@@ -746,11 +745,11 @@ function AdminPanel() {
                   <button
                     onClick={() => verifyReceipt(selectedOrder.id, true)}
                     disabled={actionLoading === selectedOrder.id}
-                    className="flex-1 bg-[#2B8E5D] text-white py-3 px-4 rounded-lg hover:bg-[#4ac085] transition duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 bg-[#2B8E5D] text-white py-2 sm:py-3 px-4 rounded-lg hover:bg-[#4ac085] transition duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                   >
                     {actionLoading === selectedOrder.id ? (
                       <div className="flex items-center justify-center">
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin ml-2"></div>
                         در حال پردازش...
                       </div>
                     ) : (

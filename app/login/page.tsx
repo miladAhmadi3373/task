@@ -75,54 +75,83 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center w-full h-full bg-linear-to-br from-gray-50 to-gray-200" dir="rtl">
-      <div className="w-[30%] bg-white shadow-2xl rounded-3xl p-8 flex flex-col items-center">
-        <div className="mb-6">
-          <svg className="w-12 h-12 text-[#2B8E5D]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <div className="flex items-center justify-center w-full min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 p-4" dir="rtl">
+      <div className="w-full sm:w-[90%] md:w-[70%] lg:w-[50%] xl:w-[30%] bg-white shadow-2xl rounded-2xl lg:rounded-3xl p-6 sm:p-8 flex flex-col items-center">
+        <div className="mb-4 sm:mb-6">
+          <svg className="w-10 h-10 sm:w-12 sm:h-12 text-[#2B8E5D]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
           </svg>
         </div>
-        <h1 className="text-2xl font-extrabold text-gray-900 mb-4 border-b-2 border-[#2B8E5D] pb-3 w-full text-center tracking-wide">ورود به حساب</h1>
+        
+        <h1 className="text-xl sm:text-2xl font-extrabold text-gray-900 mb-3 sm:mb-4 border-b-2 border-[#2B8E5D] pb-2 sm:pb-3 w-full text-center tracking-wide">
+          ورود به حساب
+        </h1>
         
         {/* Login Form */}
-        <form onSubmit={handleSubmit} className="w-full space-y-4">
+        <form onSubmit={handleSubmit} className="w-full space-y-3 sm:space-y-4">
           <div>
-            <label className="block text-gray-700 font-medium mb-1">ایمیل</label>
+            <label className="block text-gray-700 font-medium mb-1 text-sm sm:text-base">ایمیل</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-full focus:outline-none focus:border-[#2B8E5D] transition duration-300"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-full focus:outline-none focus:border-[#2B8E5D] transition duration-300 text-sm sm:text-base"
               required
+              placeholder="example@gmail.com"
             />
           </div>
+          
           <div>
-            <label className="block text-gray-700 font-medium mb-1">رمز عبور</label>
+            <label className="block text-gray-700 font-medium mb-1 text-sm sm:text-base">رمز عبور</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-full focus:outline-none focus:border-[#2B8E5D] transition duration-300"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-full focus:outline-none focus:border-[#2B8E5D] transition duration-300 text-sm sm:text-base"
               required
+              placeholder="••••••••"
             />
           </div>
-          {error && <p className="text-red-500 text-center text-sm">{error}</p>}
+          
+          {error && (
+            <p className="text-red-500 text-center text-xs sm:text-sm bg-red-50 py-2 px-3 rounded-lg">
+              {error}
+            </p>
+          )}
+          
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 duration-300 hover:shadow-2xl cursor-pointer hover:bg-[#4ac085] text-white bg-[#2B8E5D] rounded-full text-base font-semibold tracking-wide transform hover:-translate-y-1 disabled:opacity-50"
+            className="w-full py-3 sm:py-4 duration-300 hover:shadow-2xl cursor-pointer hover:bg-[#4ac085] text-white bg-[#2B8E5D] rounded-full text-sm sm:text-base font-semibold tracking-wide transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
-            {loading ? "در حال ورود..." : "ورود"}
+            {loading ? (
+              <div className="flex items-center justify-center">
+                <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full animate-spin ml-2"></div>
+                در حال ورود...
+              </div>
+            ) : (
+              "ورود"
+            )}
           </button>
         </form>
 
         {/* Registration Link */}
-        <p className="mt-4 text-gray-600 text-sm">
+        <p className="mt-4 sm:mt-6 text-gray-600 text-xs sm:text-sm text-center">
           حساب کاربری ندارید؟{' '}
-          <Link href="/register" className="text-[#2B8E5D] hover:text-[#4ac085] font-medium duration-300">
+          <Link 
+            href="/register" 
+            className="text-[#2B8E5D] hover:text-[#4ac085] font-medium duration-300"
+          >
             ثبت نام
           </Link>
         </p>
+
+        {/* Admin Demo Info */}
+        <div className="mt-6 p-3 sm:p-4 bg-blue-50 rounded-lg border border-blue-200 w-full">
+          <p className="text-xs sm:text-sm text-blue-700 text-center">
+            <strong>دموی ادمین:</strong> admin@gmail.com / admin
+          </p>
+        </div>
       </div>
     </div>
   );
