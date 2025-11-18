@@ -103,7 +103,7 @@ export default function CartPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center w-full h-full text-base md:text-lg">
+      <div className="flex items-center justify-center w-full min-h-screen text-base md:text-lg">
         در حال بررسی ورود...
       </div>
     );
@@ -114,58 +114,73 @@ export default function CartPage() {
   }
 
   return (
-    <div className="flex items-center justify-center w-full h-full p-2 md:p-0">
+    <div className="flex items-center justify-center w-full min-h-screen p-3 sm:p-4 lg:p-6 bg-gray-50">
       {/* Shopping cart content */}
-      <div className="w-full md:w-[87%] h-full md:h-[87%] rounded-xl bg-gray-100 flex flex-col md:flex-row justify-between space-y-4 md:space-y-0 md:space-x-4">
+      <div className="w-full max-w-6xl rounded-2xl bg-gray-100 flex flex-col lg:flex-row justify-between space-y-4 lg:space-y-0 lg:space-x-6 min-h-[500px]">
+        
         {/* Left sidebar - Cart summary */}
-        <div className="w-full md:w-1/3 bg-green-100 shadow h-auto md:h-[95%] m-3 rounded-xl flex flex-col">
-          <div className="text-center w-full mt-6 md:mt-10 text-lg md:text-xl">سبد نهایی</div>
-          <div className="flex flex-col justify-end pb-10 md:pb-20 w-full h-full">
-            <div className="bg-green-200 py-3 mx-4 md:mx-6 rounded-xl">
-              <div className="flex items-center justify-between w-[90%] mx-auto text-sm md:text-base">
-                <p>{`(${totalCount})`}</p>
-                <p>تعداد کالا</p>
-              </div>
-              {cartData?.items?.map((item: CartItem) => (
-                <div
-                  key={item.id}
-                  className="flex items-center justify-end relative w-[90%] mx-auto text-gray-700 text-xs md:text-sm"
-                >
-                  <p className="text-[10px] md:text-[12px] absolute left-3 md:left-5">{`(${item.count})`}</p>
-                  <p className="text-[10px] md:text-[12px] truncate max-w-[120px] md:max-w-[150px]">
-                    {item.title}
-                  </p>
+        <div className="w-full lg:w-1/3 bg-green-50 shadow-lg h-auto lg:h-auto m-2 sm:m-3 lg:m-4 rounded-xl flex flex-col order-2 lg:order-1">
+          <div className="text-center w-full mt-4 sm:mt-6 lg:mt-8 text-lg sm:text-xl font-bold text-[#2B8E5D]">
+            سبد نهایی
+          </div>
+          
+          <div className="flex flex-col justify-between pb-6 lg:pb-8 w-full h-full px-3 sm:px-4">
+            {/* Cart Summary */}
+            <div className="flex-1">
+              <div className="bg-green-100 py-3 sm:py-4 rounded-xl mt-4 sm:mt-6 border border-green-200">
+                <div className="flex items-center justify-between w-full px-3 sm:px-4 text-sm sm:text-base">
+                  <p className="font-bold text-[#2B8E5D]">{`(${totalCount})`}</p>
+                  <p className="text-gray-700">تعداد کالا</p>
                 </div>
-              ))}
-              <div className="flex items-center justify-between w-[90%] mx-auto mt-4 md:mt-5 text-sm md:text-base">
-                <p>{`${totalPrice.toLocaleString()} تومان`}</p>
-                <p>جمع سبد خرید</p>
+                
+                {/* Cart Items List */}
+                <div className="max-h-32 sm:max-h-40 overflow-y-auto mt-3 space-y-2">
+                  {cartData?.items?.map((item: CartItem) => (
+                    <div
+                      key={item.id}
+                      className="flex items-center justify-between w-full px-3 sm:px-4 text-gray-700 text-xs sm:text-sm py-1 border-b border-green-200 last:border-b-0"
+                    >
+                      <p className="text-[10px] sm:text-[12px] text-[#2B8E5D] font-medium">{`(${item.count})`}</p>
+                      <p className="text-[10px] sm:text-[12px] truncate flex-1 text-left mx-2">
+                        {item.title}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Total Price */}
+                <div className="flex items-center justify-between w-full px-3 sm:px-4 mt-4 sm:mt-5 text-sm sm:text-base border-t border-green-300 pt-3">
+                  <p className="font-bold text-[#2B8E5D]">{`${totalPrice.toLocaleString()} تومان`}</p>
+                  <p className="text-gray-700">جمع سبد خرید</p>
+                </div>
               </div>
+
+              {/* Error Message */}
+              {error && (
+                <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-lg text-sm">
+                  <p>{error}</p>
+                  <button
+                    onClick={handleRetry}
+                    className="mt-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 text-sm w-full"
+                  >
+                    تلاش مجدد
+                  </button>
+                </div>
+              )}
             </div>
 
-            {error && (
-              <div className="mx-4 md:mx-6 mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded text-sm md:text-base">
-                <p>{error}</p>
-                <button
-                  onClick={handleRetry}
-                  className="mt-2 px-3 md:px-4 py-1 md:py-2 bg-red-500 text-white rounded hover:bg-red-600 text-sm md:text-base"
-                >
-                  تلاش مجدد
-                </button>
-              </div>
-            )}
-
-            <div className="w-[90%] mt-10 md:mt-20 mx-auto space-y-4">
+            {/* Action Buttons */}
+            <div className="w-full mt-6 lg:mt-8 space-y-3">
               <Link
                 href={"/pre-invoice"}
-                className="h-10 md:h-12 mb-3 md:mb-5 flex items-center justify-center duration-300 hover:shadow-lg cursor-pointer hover:bg-[#4ac085] text-white bg-[#2B8E5D] rounded-xl text-sm md:text-base w-full"
+                className="h-12 sm:h-14 flex items-center justify-center duration-300 hover:shadow-lg cursor-pointer hover:bg-[#4ac085] text-white bg-[#2B8E5D] rounded-xl text-sm sm:text-base w-full font-medium"
                 onClick={handlePreInvoiceClick}
               >
                 دریافت پیش فاکتور و ادامه فرایند خرید
               </Link>
               <Link
                 href={"/"}
-                className="w-full md:w-[50%] mx-auto h-10 flex items-center justify-center duration-300 cursor-pointer hover:shadow-lg hover:bg-[#da786f] text-white bg-[#c73d3d] rounded-xl text-sm md:text-base"
+                className="w-full h-12 flex items-center justify-center duration-300 cursor-pointer hover:shadow-lg hover:bg-[#da786f] text-white bg-[#c73d3d] rounded-xl text-sm sm:text-base font-medium"
               >
                 لغو خرید
               </Link>
@@ -174,34 +189,46 @@ export default function CartPage() {
         </div>
 
         {/* Right content - Cart items list */}
-        <div className="w-full md:w-2/3 flex flex-col items-center px-2 md:px-0">
-          <h1 className="text-lg md:text-xl mt-2 py-1 px-3 md:px-4 text-[#2B8E5D] border-b border-b-[#2B8E5D]">
+        <div className="w-full lg:w-2/3 flex flex-col items-center px-3 sm:px-4 lg:px-0 order-1 lg:order-2">
+          <h1 className="text-lg sm:text-xl lg:text-2xl mt-2 sm:mt-4 py-2 px-4 text-[#2B8E5D] border-b-2 border-[#2B8E5D] font-bold w-full text-center lg:text-right">
             سبد خرید شما
           </h1>
 
-          {cartLoading ? (
-            <div className="w-full text-center py-8 md:py-10 text-base md:text-lg">
-              در حال بارگذاری سبد خرید...
-            </div>
-          ) : error ? (
-            <div className="w-full text-center py-8 md:py-10 text-red-500 text-base md:text-lg">{error}</div>
-          ) : cartData?.items && cartData.items.length > 0 ? (
-            cartData.items.map((item: CartItem) => (
-              <Cart
-                key={item.id}
-                image_src={item.image_src}
-                title={item.title}
-                desc={item.desc}
-                price={item.price}
-                count={item.count}
-                fixed={true}
-              />
-            ))
-          ) : (
-            <div className="w-full text-center py-8 md:py-10 text-gray-500 text-base md:text-lg">
-              سبد خرید خالی است
-            </div>
-          )}
+          <div className="w-full flex-1 overflow-y-auto py-4">
+            {cartLoading ? (
+              <div className="w-full text-center py-8 sm:py-12 text-base sm:text-lg text-gray-600">
+                <div className="flex flex-col items-center">
+                  <div className="w-8 h-8 border-4 border-[#2B8E5D] border-t-transparent rounded-full animate-spin mb-3"></div>
+                  در حال بارگذاری سبد خرید...
+                </div>
+              </div>
+            ) : error ? (
+              <div className="w-full text-center py-8 sm:py-12 text-red-500 text-base sm:text-lg">
+                {error}
+              </div>
+            ) : cartData?.items && cartData.items.length > 0 ? (
+              <div className="space-y-3 sm:space-y-4 px-2">
+                {cartData.items.map((item: CartItem) => (
+                  <Cart
+                    key={item.id}
+                    image_src={item.image_src}
+                    title={item.title}
+                    desc={item.desc}
+                    price={item.price}
+                    count={item.count}
+                    fixed={true}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="w-full text-center py-8 sm:py-12 text-gray-500 text-base sm:text-lg flex flex-col items-center">
+                <svg className="w-16 h-16 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                سبد خرید خالی است
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
