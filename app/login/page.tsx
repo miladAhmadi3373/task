@@ -26,7 +26,7 @@ function Login() {
     try {
       // Check for admin login
       if (email.toLowerCase() === "admin@gmail.com" && password === "admin") {
-        console.log("ورود ادمین تشخیص داده شد");
+        console.log("Admin login detected");
         
         // Create fake token for admin
         const adminToken = "admin-token-" + Date.now();
@@ -34,7 +34,7 @@ function Login() {
         // Save admin token in cookie
         document.cookie = `token=${adminToken}; path=/; max-age=3600; secure; samesite=strict`;
         
-        console.log("ورود ادمین موفق");
+        console.log("Admin login successful");
         router.push("/paneladmin");
         return;
       }
@@ -52,8 +52,11 @@ function Login() {
         throw new Error("توکن در پاسخ سرور موجود نیست.");
       }
 
-      console.log("لاگین موفق:", data);
-      router.push("/shoppingCart");
+      console.log("Login successful:", data);
+      // Use setTimeout to ensure cookie is set before navigation in production
+      setTimeout(() => {
+        router.push("/shoppingCart");
+      }, 100);
     } catch (err: any) {
       let errorMessage = "خطایی در ورود رخ داد. لطفاً دوباره امتحان کنید.";
       if (err.response?.data?.message) {
